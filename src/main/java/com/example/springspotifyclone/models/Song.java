@@ -1,6 +1,8 @@
 package com.example.springspotifyclone.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class Song {
 
     public Song() {}
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
     cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "user_song",

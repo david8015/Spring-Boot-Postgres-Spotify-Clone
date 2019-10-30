@@ -1,16 +1,21 @@
 package com.example.springspotifyclone.service;
 
+import com.example.springspotifyclone.models.Song;
 import com.example.springspotifyclone.models.User;
 
+import com.example.springspotifyclone.repositories.SongRepository;
 import com.example.springspotifyclone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl<CourseRepository> implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    SongRepository songRepository;
 
     @Override
     public Iterable<User> listUsers() {
@@ -28,8 +33,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User getUser(String username){
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public void deleteById(Long userId) {
         userRepository.deleteById(userId);
     }
+
+    public User addSong(String username, long songid){
+        Song song = songRepository.findById(songid).get();
+        User user = getUser(username);
+        user.addSong(song);
+
+        return userRepository.save(user);
+
+    };
 
 }

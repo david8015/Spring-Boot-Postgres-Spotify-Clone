@@ -1,6 +1,7 @@
 package com.example.springspotifyclone.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,5 +61,12 @@ CascadeType.MERGE, CascadeType.REFRESH})
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public List<Song> addSong(Song song){
+        if (songs == null)
+            songs = new ArrayList<>();
+            songs.add(song);
+            return songs;
     }
 }
