@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
 
-
-
     @Autowired
     private UserService userService;
 
@@ -24,7 +22,7 @@ public class UserController {
         return userService.createUser(newUser);
     }
 
-    @GetMapping("/login/{username}/{password}")
+    @PostMapping("/login/{username}/{password}")
     public User login(@PathVariable String username, @PathVariable String password) {
         return userService.login(username, password);
     }
@@ -38,6 +36,10 @@ public class UserController {
     @PutMapping("/user/{username}/{songid}")
     public User addSong(@PathVariable String username, @PathVariable long songid){
         return userService.addSong(username, songid);
+    }
 
+    @DeleteMapping("/{username}/{songId}")
+    public User removeUserSong(@PathVariable String username, @PathVariable Long songId){
+       return userService.removeSongFromUser(username, songId);
     }
 }

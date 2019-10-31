@@ -11,4 +11,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     public User findByUsername(String username);
 
+//    @Query("Delete from user_song us where us.userId =?1 and us.songId =?2 ")
+//    public void removeSongById(Long userId, Long songId);
+
 }

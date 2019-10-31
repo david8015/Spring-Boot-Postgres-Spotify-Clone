@@ -69,4 +69,9 @@ CascadeType.MERGE, CascadeType.REFRESH})
             songs.add(song);
             return songs;
     }
+
+    public List<Song> removeSongFromUser(Song song){
+        songs.remove(song);
+        return songs;
+    }
 }
