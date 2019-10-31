@@ -1,17 +1,17 @@
 package com.example.springspotifyclone.service;
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 import com.example.springspotifyclone.models.Song;
 import com.example.springspotifyclone.models.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
 
     public Iterable<User> listUsers();
 
-    public User createUser(User newUser);
+    public String createUser(User newUser);
 
-    public User login(String username, String password);
+    public String login(User user);
 
     public void deleteById(Long userId);
 
