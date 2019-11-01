@@ -51,6 +51,25 @@ public class UserControllerTest {
 
 
     }
+
+    @Test
+    public void signup_Success() throws Exception{
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createUserInJson("Michael", "Jackson", "King of pop"));
+
+        when(userService.createUser(any())).thenReturn("2468");
+
+        MvcResult result = mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"token\":\"2468\"}"))
+                .andReturn();
+
+        System.out.println(result.getResponse().getContentAsString());
+
+    }
+
         private static String createUserInJson (String name, String password, String roleName) {
             return "{ \"username\": \"" + name + "\", " +
                     "\"password\":\"" + password + "\", " +
