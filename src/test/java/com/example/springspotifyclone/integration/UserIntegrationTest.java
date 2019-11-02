@@ -100,7 +100,7 @@ import org.springframework.dao.DataIntegrityViolationException;
         }
 
         @Test
-        public void addCourse_User_Success() {
+        public void addSong_User_Success() {
             User user = userRepository.findByUsername("batman");
             if(user == null) {
                 user = createUser();

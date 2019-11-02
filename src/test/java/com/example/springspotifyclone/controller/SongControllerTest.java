@@ -35,6 +35,9 @@ public class SongControllerTest {
     private MockMvc mockMvc;
     private List<Song> songs;
 
+    private String myTitle = "hey joe";
+    private String myLength = "162";
+
     @InjectMocks
     private Song createdSong;
 
@@ -49,13 +52,14 @@ public class SongControllerTest {
     @Before
     public void init() {
         mockMvc = MockMvcBuilders.standaloneSetup(songController).build();
-        createdSong.setTitle("hey joe");
-        createdSong.setLength("162");
+        createdSong.setId(1L);
+        createdSong.setTitle(myTitle);
+        createdSong.setLength(myLength);
     }
 
     private static String createSongInJson(String title, String length) {
         return "{ \"title\": \"" + title + "\", " +
-                "\"length\":" + length + "}";
+                "\"length\": \"" + length + "\"}";
     }
 
     @Test
@@ -65,13 +69,13 @@ public class SongControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/song")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createSongInJson("hey joe","162"));
+                .content(createSongInJson(myTitle, myLength));
 
         when(songService.createSong(any())).thenReturn(createdSong);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(content().json(createSongInJson("hey joe","162")));
+                .andExpect(content().json(createSongInJson(myTitle, myLength)));
         verify(songService, times(1)).createSong(any());
     }
 
