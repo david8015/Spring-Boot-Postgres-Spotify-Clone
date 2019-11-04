@@ -1,9 +1,10 @@
 package com.example.springspotifyclone.models;
 
-import javax.persistence.*;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
+import java.util.List;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -15,20 +16,18 @@ public class UserRole {
     @OneToMany(mappedBy = "userRole",
             cascade = CascadeType.ALL)
     private List<User> users;
-
-    public void setUsers(List<User> users){ this.users = users; }
-
-    public List<User> getUsers(){ return users; }
-
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(unique = true)
     private String name;
 
     public UserRole() {}
+
+    public List<User> getUsers(){ return users; }
+
+    public void setUsers(List<User> users){ this.users = users; }
 
     public int getId() {
         return id;
